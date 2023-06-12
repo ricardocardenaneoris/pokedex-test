@@ -6,16 +6,16 @@ const offset = 0
 
 
 const App = () => {
-  const [pokemonList, setPokemonList] = useState()
+  const [pokemonList, setPokemonList] = useState([])
 
   const apiCall = async () => {
-    const response = await axios.get<PokemonAPI>(`https://pokeapi.co/api/v2/pokemon/?limit=${limit}&offset=${offset}`);
+    const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/?limit=${limit}&offset=${offset}`);
     const data = response.data;
-    return data?.results
+    setPokemonList(data?.results)
   }
 
   useEffect(() => {
-    setPokemonList(apiCall())
+    apiCall()
   },[])
 
   return <div>
